@@ -4,42 +4,42 @@ ini_set('display_errors', 1);
 
 $filename = 'nicknames.txt';
 
-// Lógica para adicionar nickname
+// Lógica para adicionar nickname utilizando método POST.
 if (isset($_POST['add_button']) && isset($_POST['add_nickname'])) {
     $nickname = $_POST['add_nickname'];
 
-    // Carrega o conteúdo atual do arquivo TXT
+    // Carrega o conteúdo atual.
     $nicknames = file_get_contents($filename);
 
-    // Adiciona o novo nickname ao conteúdo
+    // Adiciona o novo nickname.
     $nicknames .= $nickname . PHP_EOL;
 
-    // Salva o conteúdo atualizado no arquivo TXT
+    // Salva o conteúdo atualizado no arquivo.
     file_put_contents($filename, $nicknames);
 
     echo "Nickname adicionado com sucesso.";
     
     header('Location: Contas.html');
-    exit(); // Certifique-se de sair após o redirecionamento
+    exit(); // Recarrega a pagina após o fim da operação.
 }
 
-// Lógica para excluir nickname
+// Lógica para excluir nickname.
 if (isset($_POST['delete_button']) && isset($_POST['delete_nickname'])) {
     $nicknameToDelete = $_POST['delete_nickname'];
 
-    // Carrega o conteúdo atual do arquivo TXT
+    // Carrega o conteúdo atual.
     $nicknames = file_get_contents($filename);
 
-    // Remove o nickname especificado do conteúdo
+    // Remove o nickname especificado.
     $nicknames = str_replace($nicknameToDelete . PHP_EOL, '', $nicknames);
 
-    // Salva o conteúdo atualizado no arquivo TXT
+    // Salva o conteúdo atualizado.
     file_put_contents($filename, $nicknames);
 
     echo "Nickname excluído com sucesso.";
     
     header('Location: Contas.html');
-    exit(); // Certifique-se de sair após o redirecionamento
+    exit(); // Recarrega a pagina após o fim da operação.
     
 }
 
