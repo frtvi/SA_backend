@@ -1,5 +1,5 @@
 # SA_backend
-https://smurfarena.shop/<br>https://github.com/frtvi/ProjectSmurfArena<br>
+https://smurfarena.shop/<br>https://github.com/frtvi/ProjectSmurfArena (Repositório do código Front-end)<br>
 Integrantes do grupo:
 - Victor Augusto Lima Barbosa (202202209236)<br>
 - Lucas Camargo Vicentini (202302380433)<br>
