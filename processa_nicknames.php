@@ -24,7 +24,7 @@ if (isset($_POST['add_button']) && isset($_POST['add_nickname'])) {
     exit(); // Recarrega a pagina após o fim da operação.
 }
 
-// Lógica para excluir nickname.
+// Lógica para excluir nickname, utilizando método POST.
 if (isset($_POST['delete_button']) && isset($_POST['delete_nickname'])) {
     $nicknameToDelete = $_POST['delete_nickname'];
 
