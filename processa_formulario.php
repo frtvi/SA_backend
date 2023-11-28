@@ -1,9 +1,12 @@
 <?php
-include 'functions.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+// Mostra os erros, se houver algum.
 
-// Verifica se o formulário foi enviado
+// Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Conectar ao banco de dados 
+
+    // Inserção dos dados do BD para conexão.
     $servername = "srv1079.hstgr.io";
     $username = "u368907112_admin";
     $password = "Victor270377@";
@@ -16,50 +19,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Conexão falhou: " . $conn->connect_error);
     }
 
-    // Adicionar ou excluir Nickname POST
-    if ((isset($_POST["add_button"]) && isset($_POST["add_nickname"])) || (isset($_POST["delete_button"]) && isset($_POST["delete_nickname"]))) {
-        $nickname = isset($_POST["add_button"]) ? $_POST["add_nickname"] : $_POST["delete_nickname"];
-        
-        // Adicionar ou excluir do banco de dados requisição POST
-        if (isset($_POST["add_button"])) {
-            $sql = "INSERT INTO nicknames (nickname) VALUES ('$nickname')";
-            $success_message_db = "Nickname adicionado ao banco de dados com sucesso!";
-            $error_message_db = "Erro ao adicionar nickname ao banco de dados: " . $conn->error;
-        } elseif (isset($_POST["delete_button"])) {
-            $sql = "DELETE FROM nicknames WHERE nickname = '$nickname'";
-            $success_message_db = "Nickname excluído do banco de dados com sucesso!";
-            $error_message_db = "Erro ao excluir nickname do banco de dados: " . $conn->error;
-        }
+    // Inserção dos dados via método POST
+    $nome = $_POST["nome"];
+    $email = $_POST["email"];
+    $telefone = $_POST["telefone"];
+    $idade = $_POST["idade"];
+    $endereco = $_POST["endereco"];
+    $cidade = $_POST["cidade"];
+    $idlol = $_POST["idlol"];
+    $containte = $_POST["containte"];
 
-        if ($conn->query($sql) === TRUE) {
-            echo $success_message_db . "<br>";
-        } else {
-            echo $error_message_db . "<br>";
-        }
+    // Insere os dados no banco de dados
+    $sql = "INSERT INTO formulario (nome, email, telefone, idade, endereco, cidade, idlol, containte) VALUES ('$nome', '$email', '$telefone', '$idade', '$endereco', '$cidade', '$idlol', '$containte')";
 
-        
-        $txtFilename = "nicknames.txt";
-        $search = "Novo Nickname: $nickname";
-        $txtContent = file_get_contents($txtFilename);
-
-        if (isset($_POST["add_button"])) {
-            $txtContent .= "Novo Nickname: $nickname\n";
-            $success_message_txt = "Nickname adicionado com sucesso!";
-            $error_message_txt = "Erro ao adicionar nickname";
-        } elseif (isset($_POST["delete_button"])) {
-            $txtContent = str_replace($search, '', $txtContent);
-            $success_message_txt = "Nickname excluído com sucesso!";
-            $error_message_txt = "Erro ao excluir nickname";
-        }
-
-        if (file_put_contents($txtFilename, $txtContent)) {
-            echo $success_message_txt;
-        } else {
-            echo $error_message_txt;
-        }
+    if ($conn->query($sql) === TRUE) {
+        echo "Dados inseridos com sucesso!";
+            header('Location: contato.html');
+            exit(); // Recarrega a página após o fim da operação.
+    } else {
+        echo "Erro ao inserir dados: " . $conn->error;
+            header('Location: contato.html');
+            exit(); // Recarrega a página após o fim da operação.
     }
 
-    // Fechar a conexão com o banco de dados
+    // Fecha a conexão com o banco de dados
     $conn->close();
 }
 ?>
